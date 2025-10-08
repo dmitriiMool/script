@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Video Screensaver</title>
@@ -8,24 +7,36 @@
         html, body {
             margin: 0;
             padding: 0;
+            background: black;
+            overflow: hidden;
             height: 100%;
-            background-color: black;
+            width: 100%;
         }
         video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
+            top: 0;
+            left: 0;
             height: 100%;
+            width: 100%;
             object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <video autoplay muted loop playsinline>
-        <source src="video.mp4" type="video/mp4">
-        Ваш браузер не підтримує відео.
-    </video>
+    <video id="videoPlayer" autoplay muted playsinline></video>
+    <script>
+        const videoFiles = ["video1.mp4", "video2.mp4", "video3.mp4"];
+        let currentVideo = 0;
+        const videoPlayer = document.getElementById("videoPlayer");
+
+        function playNextVideo() {
+            videoPlayer.src = videoFiles[currentVideo];
+            videoPlayer.play();
+            currentVideo = (currentVideo + 1) % videoFiles.length;
+        }
+
+        videoPlayer.addEventListener("ended", playNextVideo);
+        playNextVideo();
+    </script>
 </body>
 </html>
